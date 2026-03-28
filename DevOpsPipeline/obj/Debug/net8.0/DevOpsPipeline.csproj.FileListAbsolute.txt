@@ -1,0 +1,15 @@
+C:\Users\denis\devops-pipeline\DevOpsPipeline\bin\Debug\net8.0\DevOpsPipeline.exe
+C:\Users\denis\devops-pipeline\DevOpsPipeline\bin\Debug\net8.0\DevOpsPipeline.deps.json
+C:\Users\denis\devops-pipeline\DevOpsPipeline\bin\Debug\net8.0\DevOpsPipeline.runtimeconfig.json
+C:\Users\denis\devops-pipeline\DevOpsPipeline\bin\Debug\net8.0\DevOpsPipeline.dll
+C:\Users\denis\devops-pipeline\DevOpsPipeline\bin\Debug\net8.0\DevOpsPipeline.pdb
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\DevOpsPipeline.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\DevOpsPipeline.AssemblyInfoInputs.cache
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\DevOpsPipeline.AssemblyInfo.cs
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\DevOpsPipeline.csproj.CoreCompileInputs.cache
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\DevOpsPipeline.sourcelink.json
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\DevOpsPipeline.dll
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\refint\DevOpsPipeline.dll
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\DevOpsPipeline.pdb
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\DevOpsPipeline.genruntimeconfig.cache
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net8.0\ref\DevOpsPipeline.dll
