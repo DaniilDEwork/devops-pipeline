@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get code from repository
+      - name: Get code
         uses: actions/checkout@v4
 
       - name: Install .NET
@@ -29,3 +29,9 @@ jobs:
         with:
           name: build-report
           path: build-report.txt
+
+      - name: Send Telegram message
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+          -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+          -d text="Pipeline completed successfully. Repository: ${{ github.repository }}. Branch: ${{ github.ref_name }}. Commit: ${{ github.sha }}"
