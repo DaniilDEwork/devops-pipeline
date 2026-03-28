@@ -12,3 +12,4 @@ C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net10.0\refint\DevOpsPip
 C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net10.0\DevOpsPipeline.pdb
 C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net10.0\DevOpsPipeline.genruntimeconfig.cache
 C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net10.0\ref\DevOpsPipeline.dll
+C:\Users\denis\devops-pipeline\DevOpsPipeline\obj\Debug\net10.0\DevOpsPipeline.sourcelink.json
