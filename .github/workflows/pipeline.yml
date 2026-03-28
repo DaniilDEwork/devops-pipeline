@@ -34,25 +34,33 @@ jobs:
       - name: Prepare variables
         run: |
           VERSION="v1.0.${{ github.run_number }}"
+          OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_LC=$(echo "${IMAGE_NAME}" | tr '[:upper:]' '[:lower:]')
+
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "OWNER_LC=$OWNER_LC" >> $GITHUB_ENV
+          echo "IMAGE_LC=$IMAGE_LC" >> $GITHUB_ENV
           echo "MERGED_BRANCH=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
           echo "BASE_BRANCH=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
           echo "MERGED_AT=${{ github.event.pull_request.merged_at }}" >> $GITHUB_ENV
           echo "MERGE_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
           echo "REPO_URL=${{ github.server_url }}/${{ github.repository }}" >> $GITHUB_ENV
-          echo "DOCKER_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
-          echo "DOCKER_NAME=${{ env.IMAGE_NAME }}" >> $GITHUB_ENV
-          echo "DOCKER_FULL_NAME=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:$VERSION" >> $GITHUB_ENV
+          echo "DOCKER_FULL_NAME=ghcr.io/$OWNER_LC/$IMAGE_LC:$VERSION" >> $GITHUB_ENV
 
       - name: Restore project
         run: dotnet restore ./DevOpsPipeline/DevOpsPipeline.csproj
 
-      - name: Quality check and build
+      - name: Quality check
+        run: dotnet format ./DevOpsPipeline/DevOpsPipeline.csproj --verify-no-changes --verbosity diagnostic
+
+      - name: Build project
+        run: dotnet build ./DevOpsPipeline/DevOpsPipeline.csproj --configuration Release --no-restore > build-output.txt
+
+      - name: Create report file
         run: |
-          dotnet build ./DevOpsPipeline/DevOpsPipeline.csproj --configuration Release --no-restore > build-output.txt
           {
             echo "Project: $PROJECT_NAME"
-            echo "Release: $VERSION"
+            echo "Version: $VERSION"
             echo "Git tag: $VERSION"
             echo "Merged branch: $MERGED_BRANCH"
             echo "Base branch: $BASE_BRANCH"
@@ -69,6 +77,11 @@ jobs:
         with:
           name: build-report
           path: release-report.txt
+
+      - name: Create git tag
+        run: |
+          git tag "$VERSION"
+          git push origin "$VERSION"
 
       - name: Create GitHub release and attach report
         env:
@@ -90,7 +103,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          tags: ghcr.io/${{ env.OWNER_LC }}/${{ env.IMAGE_LC }}:${{ env.VERSION }}
 
       - name: Send Telegram message
         run: |
@@ -102,16 +115,17 @@ jobs:
           <b>Версия:</b> $VERSION
           <b>Дата merge:</b> $MERGED_AT
 
-          <b>Информация о Git-репозитории</b>
+          Информация о Git-репозитории
           <b>Какая ветка была замержена:</b> $MERGED_BRANCH
           <b>Какой сейчас выпуск:</b> $VERSION
           <b>GIT TAG:</b> $VERSION
           <b>Ссылка на merge:</b> $MERGE_URL
           <b>Ссылка на репозиторий:</b> $REPO_URL
 
-          <b>Информация о Docker-репозитории</b>
-          <b>Владелец:</b> $DOCKER_OWNER
-          <b>Название:</b> $DOCKER_NAME
+          Информация о Docker-репозитории
+          <b>Владелец:</b> $OWNER_LC
+          <b>Название:</b> $IMAGE_LC
+
           <b>Полное имя:</b> $DOCKER_FULL_NAME
           EOF
           )
