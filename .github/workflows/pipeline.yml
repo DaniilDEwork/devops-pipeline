@@ -110,21 +110,21 @@ jobs:
           tags: ghcr.io/${{ env.OWNER_LC }}/${{ env.IMAGE_LC }}:${{ env.RELEASE_TAG }}
 
       - name: Send Telegram message
-          run: |
-            MESSAGE=$(cat <<EOF
-            Новый выпуск изменений
-            <b>Проект:</b> <code>$PROJECT_NAME</code>
-            <b>Версия:</b> <code>$APP_VERSION</code>
+        run: |
+          MESSAGE=$(cat <<EOF
+          Новый выпуск изменений
+          <b>Проект:</b> <code>$PROJECT_NAME</code>
+          <b>Версия:</b> <code>$APP_VERSION</code>
 
-            <b>Какая ветка была замержена:</b> <code>$MERGED_BRANCH</code>
-            <b>Какой сейчас выпуск:</b> <code>$RELEASE_TAG</code>
-            <b>Дата и время мержа:</b> <code>$MERGED_AT</code>
-            <b>Ссылка на мерж:</b> $MERGE_URL
-            <b>Ссылка на репозиторий:</b> $REPO_URL
-            EOF
-            )
+          <b>Какая ветка была замержена:</b> <code>$MERGED_BRANCH</code>
+          <b>Какой сейчас выпуск:</b> <code>$RELEASE_TAG</code>
+          <b>Дата и время мержа:</b> <code>$MERGED_AT</code>
+          <b>Ссылка на мерж:</b> $MERGE_URL
+          <b>Ссылка на репозиторий:</b> $REPO_URL
+          EOF
+          )
 
-            curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-              -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
-             -d parse_mode="HTML" \
-              --data-urlencode text="$MESSAGE"
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d parse_mode="HTML" \
+            --data-urlencode text="$MESSAGE"
