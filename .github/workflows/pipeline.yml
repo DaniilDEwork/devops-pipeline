@@ -112,19 +112,18 @@ jobs:
       - name: Send Telegram message
         run: |
           MESSAGE=$(cat <<EOF
-          <b>GITHUB DEVOPS BOT</b>
           Новый выпуск изменений
-          <b>Проект:</b> $PROJECT_NAME
-          <b>Версия:</b> $APP_VERSION
-          <b>Дата:</b> $MERGED_AT
+          <b>Проект:</b> <code>$PROJECT_NAME</code>
+          <b>Версия:</b> <code>$APP_VERSION</code>
+          <b>Дата:</b> <code>$MERGED_AT</code>
 
           Информация о Git-репозитории
-          <b>GIT TAG:</b> $RELEASE_TAG
+          <b>GIT TAG:</b> <code>$RELEASE_TAG</code>
 
           Информация о Docker-репозитории
-          <b>Владелец:</b> $OWNER_LC
-          <b>Название:</b> $IMAGE_LC
-          <b>Полное имя:</b> $DOCKER_FULL_NAME
+          <b>Владелец:</b> <code>$OWNER_LC</code>
+          <b>Название:</b> <code>$IMAGE_LC</code>
+          <b>Полное имя:</b> <code>$DOCKER_FULL_NAME</code>
           EOF
           )
 
